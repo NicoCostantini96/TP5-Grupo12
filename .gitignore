@@ -1,8 +1,22 @@
+# === NetBeans (permitir abrir proyecto, evitar conflictos) ===
+nbproject/private/
+nbproject/project.properties
+nbproject/build-impl.xml
+
 # Compiled class file
 *.class
 
 # Log file
 *.log
+*.bak
+*.tmp
+*.swp
+*~
+
+# === Configuracion de otros IDEs ===
+*.iml
+.idea/
+.vscode/
 
 # BlueJ files
 *.ctxt
@@ -22,3 +36,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# === Archivos del sistema operativo ===
+.DS_Store
+Thumbs.db
