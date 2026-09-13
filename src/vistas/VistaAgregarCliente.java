@@ -27,6 +27,14 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
         }
     }
     
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            cargarCiudades();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

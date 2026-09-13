@@ -43,12 +43,20 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
         
         tblResultados.setModel(modeloTabla);
         
-        tblResultados.getSelectionModel().addListSelectionListener(e -> { // El listener se debe llamar una vez con el constructor o moverlo ahí si se refactoriza este método.
+        tblResultados.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 boolean haySeleccion = tblResultados.getSelectedRow() != -1;
                 btnBorrar.setEnabled(haySeleccion);
             }
         });
+    }
+    
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            llenarListaDni();
+        }
     }
     
     @SuppressWarnings("unchecked")

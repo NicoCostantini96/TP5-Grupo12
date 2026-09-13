@@ -47,6 +47,14 @@ public class VistaBuscarPorApellido extends javax.swing.JInternalFrame {
         tblResultados.setModel(modeloTabla);
     }
     
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            llenarListaApellido();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -207,7 +215,7 @@ public class VistaBuscarPorApellido extends javax.swing.JInternalFrame {
                                 contactoMapa.getNombre(),
                                 contactoMapa.getCiudad(),
                                 contactoMapa.getDireccion(),
-                                contactoMapa});
+                                telefonoMapa});
                         }
                     }
                 }

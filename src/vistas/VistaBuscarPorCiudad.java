@@ -3,6 +3,7 @@ package vistas;
 import entidades.Contacto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
@@ -38,6 +39,14 @@ public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
         modeloTabla = new DefaultTableModel(null, tituloTabla);
         
         tblResultados.setModel(modeloTabla);
+    }
+    
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            cargarCiudades();
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -179,13 +188,15 @@ public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
         listaContactos.addAll(MenuPrincipal.directorio.buscarContactos(ciudad));
         
         for (Contacto aux : listaContactos) {
-            modeloTabla.addRow(new Object[]{
-                    aux.getDni(),
-                    aux.getApellido(),
-                    aux.getNombre(),
-                    aux.getCiudad(),
-                    aux.getDireccion(),
-                    aux});
+            Long telefono = null;
+            
+            for (Map.Entry<Long, Contacto> entry : MenuPrincipal.directorio.getContactos().entrySet()) {
+                if (entry.getValue().equals(aux)) {
+                    telefono = entry.getKey();
+                    break;
+                }
+            }
+            modeloTabla.addRow(new Object[]{aux.getDni(), aux.getApellido(), aux.getNombre(), aux.getCiudad(), aux.getDireccion(), telefono});
         }
     }//GEN-LAST:event_cmbCiudadesItemStateChanged
 

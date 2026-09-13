@@ -32,6 +32,14 @@ public class VistaBuscarCliente extends javax.swing.JInternalFrame {
         lstResultados.setModel(modeloLista);
     }
     
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            llenarListaTelefonos();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -217,7 +225,6 @@ public class VistaBuscarCliente extends javax.swing.JInternalFrame {
         txtCiudad.setText(contacto.getCiudad());
         txtDomicilio.setText(contacto.getDireccion());
         txtTelefono.setText(String.valueOf(telefono));
-        
     }//GEN-LAST:event_lstResultadosValueChanged
 
 
