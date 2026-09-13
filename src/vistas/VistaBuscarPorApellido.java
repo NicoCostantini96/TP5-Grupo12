@@ -205,7 +205,7 @@ public class VistaBuscarPorApellido extends javax.swing.JInternalFrame {
                     Contacto contactoMapa = aux.getValue();
                     Long telefonoMapa = aux.getKey();
 
-                    for (Long telefonos : listaTelefonos) { // Que rebuscadoooo
+                    for (Long telefonos : listaTelefonos) {
 
                         if (telefonos.equals(telefonoMapa)) {
                             modeloTabla.addRow(new Object[]{

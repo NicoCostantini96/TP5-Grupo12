@@ -1,6 +1,7 @@
 package vistas;
 
 import entidades.Contacto;
+import javax.swing.JOptionPane;
 
 public class VistaAgregarCliente extends javax.swing.JInternalFrame {
     
@@ -227,8 +228,18 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
             return;
         }
         
-        int dni = Integer.parseInt(txtDni.getText());
-        long telefono = Long.parseLong(txtTelefono.getText());
+        int dni = 0;
+        long telefono = 0;
+        
+        try {
+            
+            dni = Integer.parseInt(txtDni.getText());
+            telefono = Long.parseLong(txtTelefono.getText());
+            
+        } catch (NumberFormatException numberFormat) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error. Dni y teléfono solo acepta números.", "Error de datos", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         Contacto contacto = new Contacto(dni, txtApellido.getText(), txtNombre.getText(),(String)cmbCiudad.getSelectedItem(), txtDomicilio.getText());
         

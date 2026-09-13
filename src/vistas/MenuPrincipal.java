@@ -46,11 +46,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }
     
-    protected void mensajeError(String titulo, String mensaje) {
-        javax.swing.JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
-    }
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
