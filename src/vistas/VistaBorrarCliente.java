@@ -15,7 +15,6 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
     public VistaBorrarCliente() {
         initComponents();
         lstBusqueda.setModel(modeloLista);
-        llenarListaDni();
         armarTabla();
     }
     

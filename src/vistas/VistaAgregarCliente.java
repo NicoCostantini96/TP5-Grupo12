@@ -8,8 +8,6 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
     
     public VistaAgregarCliente() {
         initComponents();
-        cargarCiudades();
-        cmbCiudad.setSelectedIndex(-1);
     }
     
     public static VistaAgregarCliente getAgregarCliente() {
@@ -20,6 +18,7 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
     }
     
     private void cargarCiudades() {
+        cmbCiudad.removeAllItems();
         if (!MenuPrincipal.ciudades.isEmpty()) {
             for (String aux : MenuPrincipal.ciudades) {
                 cmbCiudad.addItem(aux);
@@ -32,6 +31,7 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
         super.setVisible(aFlag);
         if (aFlag) {
             cargarCiudades();
+            cmbCiudad.setSelectedIndex(-1);
         }
     }
     

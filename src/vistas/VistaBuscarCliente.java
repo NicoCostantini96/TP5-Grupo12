@@ -7,10 +7,11 @@ import javax.swing.DefaultListModel;
 public class VistaBuscarCliente extends javax.swing.JInternalFrame {
     
     private static VistaBuscarCliente buscarCliente;
+    DefaultListModel<Long> modeloLista = new DefaultListModel<>();
     
     public VistaBuscarCliente() {
         initComponents();
-        llenarListaTelefonos();
+        lstResultados.setModel(modeloLista);
     }
     
     public static VistaBuscarCliente getBuscarCliente() {
@@ -21,7 +22,6 @@ public class VistaBuscarCliente extends javax.swing.JInternalFrame {
     }
     
     private void llenarListaTelefonos() {
-        DefaultListModel<Long> modeloLista = new DefaultListModel<>();
         modeloLista.clear();
         
         if (MenuPrincipal.directorio != null) {
@@ -29,7 +29,6 @@ public class VistaBuscarCliente extends javax.swing.JInternalFrame {
                 modeloLista.addElement(aux.getKey());
             }
         }
-        lstResultados.setModel(modeloLista);
     }
     
     @Override

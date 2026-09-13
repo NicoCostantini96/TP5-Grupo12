@@ -17,7 +17,6 @@ public class VistaBuscarPorApellido extends javax.swing.JInternalFrame {
         initComponents();
         armarTabla();
         lstBusqueda.setModel(modeloLista);
-        llenarListaApellido();
     }
     
     

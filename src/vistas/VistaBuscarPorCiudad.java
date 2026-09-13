@@ -13,9 +13,7 @@ public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
     
     public VistaBuscarPorCiudad() {
         initComponents();
-        cargarCiudades();
         armarTabla();
-        cmbCiudades.setSelectedIndex(-1);
     }
     
     public static VistaBuscarPorCiudad getBuscarPorCiudad() {
@@ -26,6 +24,7 @@ public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
     }
     
     private void cargarCiudades() {
+        cmbCiudades.removeAllItems();
         if (!MenuPrincipal.ciudades.isEmpty()) {
             for (String aux : MenuPrincipal.ciudades) {
                 cmbCiudades.addItem(aux);
@@ -46,6 +45,7 @@ public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
         super.setVisible(aFlag);
         if (aFlag) {
             cargarCiudades();
+            cmbCiudades.setSelectedIndex(-1);
         }
     }
     
