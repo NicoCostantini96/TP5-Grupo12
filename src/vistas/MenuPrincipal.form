@@ -38,6 +38,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Borrar cliente"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BorrarClienteMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -53,6 +56,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar clientes por ciudad"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ClientesPorCiudadMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ClientesPorApellidoMenuItem">
               <Properties>
@@ -61,6 +67,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar clientes por apellido"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ClientesPorApellidoMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -76,6 +85,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar ciudad"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarCiudadMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

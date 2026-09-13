@@ -14,9 +14,13 @@ public class Directorio {
 
     public Directorio() {
     }
-    
-    public void agregarContacto(Long tel, Contacto cont) {
-        contactos.putIfAbsent(tel, cont);
+
+    public Map<Long, Contacto> getContactos() {
+        return contactos;
+    }
+
+    public boolean agregarContacto(Long tel, Contacto cont) {
+        return contactos.putIfAbsent(tel, cont) == null;
     }
     
     public Contacto buscarContacto(Long nro) {
@@ -61,10 +65,8 @@ public class Directorio {
         return contactosPorCiudad;
     }
     
-    public void borrarContacto(Long nro) {
-        if (contactos != null) {
-            contactos.remove(nro);
-        }
+    public boolean borrarContacto(Long nro) {
+        return contactos.remove(nro) != null;
     }
     
 }

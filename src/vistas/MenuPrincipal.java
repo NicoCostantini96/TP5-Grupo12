@@ -1,18 +1,56 @@
 package vistas;
 
+import entidades.Contacto;
 import entidades.Directorio;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
     
-    static private Directorio directorio;
-    static private String ciudades;
+    static Directorio directorio = new Directorio();;
+    static Set<String> ciudades = new HashSet<>() ;
     
     public MenuPrincipal() {
         initComponents();
+        cargarDatosPrueba();
     }
+    
+    private void cargarDatosPrueba() { // Méramente para probar rápido
+        Contacto c1 = new Contacto(35123456, "Pérez", "Juan", "Córdoba", "Av. San Martín 123");
+        Contacto c2 = new Contacto(37890123, "Gómez", "María", "Rosario", "Belgrano 456");
+        Contacto c3 = new Contacto(32109876, "Rodríguez", "Ana", "La Plata", "Sarmiento 321");
+        Contacto c4 = new Contacto(36954287, "López", "Carlos", "Mendoza", "Mitre 789");
+        Contacto c5 = new Contacto(42964273, "Fernández", "Luis", "Mar del Plata", "Rivadavia 654");
+        Contacto c6 = new Contacto(31122334, "Martínez", "Sofía", "Salta", "San Lorenzo 987");
+        Contacto c7 = new Contacto(35544332, "García", "Pedro", "Córdoba", "España 159");
+        Contacto c8 = new Contacto(36677889, "Álvarez", "Lucía", "Corrientes", "Ituzaingó 753");
+        Contacto c9 = new Contacto(33344556, "Romero", "Jorge", "San Juan", "Colon 852");
+        Contacto c10 = new Contacto(38899001, "Sosa", "Valeria", "Paraná", "Urquiza 951");
 
+        directorio.agregarContacto(1112345678L, c1);
+        directorio.agregarContacto(1123456789L, c2);
+        directorio.agregarContacto(1134567890L, c3);
+        directorio.agregarContacto(1145678901L, c4);
+        directorio.agregarContacto(1156789012L, c5);
+        directorio.agregarContacto(1167890123L, c6);
+        directorio.agregarContacto(1178901234L, c7);
+        directorio.agregarContacto(1189012345L, c8);
+        directorio.agregarContacto(1190123456L, c9);
+        directorio.agregarContacto(1101234567L, c10);
+        
+        for (Contacto aux : directorio.getContactos().values()) {
+            ciudades.add(aux.getCiudad());
+        }
+    }
+    
+    protected void mensajeError(String titulo, String mensaje) {
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,6 +98,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         BorrarClienteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         BorrarClienteMenuItem.setText("Borrar cliente");
+        BorrarClienteMenuItem.addActionListener(this::BorrarClienteMenuItemActionPerformed);
         ClientesMenu.add(BorrarClienteMenuItem);
 
         MenuBarNavigator.add(ClientesMenu);
@@ -68,10 +107,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         ClientesPorCiudadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         ClientesPorCiudadMenuItem.setText("Buscar clientes por ciudad");
+        ClientesPorCiudadMenuItem.addActionListener(this::ClientesPorCiudadMenuItemActionPerformed);
         DirectorioMenu.add(ClientesPorCiudadMenuItem);
 
         ClientesPorApellidoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         ClientesPorApellidoMenuItem.setText("Buscar clientes por apellido");
+        ClientesPorApellidoMenuItem.addActionListener(this::ClientesPorApellidoMenuItemActionPerformed);
         DirectorioMenu.add(ClientesPorApellidoMenuItem);
 
         MenuBarNavigator.add(DirectorioMenu);
@@ -80,6 +121,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         AgregarCiudadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK));
         AgregarCiudadMenuItem.setText("Agregar ciudad");
+        AgregarCiudadMenuItem.addActionListener(this::AgregarCiudadMenuItemActionPerformed);
         CiudadesMenu.add(AgregarCiudadMenuItem);
 
         MenuBarNavigator.add(CiudadesMenu);
@@ -110,12 +152,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgregarClienteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarClienteMenuItemActionPerformed
-        dtpEscritorio.removeAll();
-        dtpEscritorio.repaint();
-        VistaAgregarCliente agregarCliente  = new VistaAgregarCliente();
+        VistaAgregarCliente agregarCliente = VistaAgregarCliente.getAgregarCliente();
+    
+        if (agregarCliente.getParent() == null) {
+            dtpEscritorio.add(agregarCliente);
+        }
+
         agregarCliente.setVisible(true);
-        dtpEscritorio.add(agregarCliente);
         dtpEscritorio.moveToFront(agregarCliente);
+
+        try {
+            agregarCliente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
     }//GEN-LAST:event_AgregarClienteMenuItemActionPerformed
 
     private void SalirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirMenuItemActionPerformed
@@ -128,13 +176,79 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirMenuItemActionPerformed
 
     private void BuscarClienteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarClienteMenuItemActionPerformed
-        dtpEscritorio.removeAll();
-        dtpEscritorio.repaint();
-        VistaBuscarCliente buscarCliente  = new VistaBuscarCliente();
+        VistaBuscarCliente buscarCliente = VistaBuscarCliente.getBuscarCliente();
+    
+        if (buscarCliente.getParent() == null) {
+            dtpEscritorio.add(buscarCliente);
+        }
+
         buscarCliente.setVisible(true);
-        dtpEscritorio.add(buscarCliente);
         dtpEscritorio.moveToFront(buscarCliente);
+
+        try {
+            buscarCliente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
     }//GEN-LAST:event_BuscarClienteMenuItemActionPerformed
+
+    private void BorrarClienteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarClienteMenuItemActionPerformed
+        VistaBorrarCliente borrarCliente = VistaBorrarCliente.getBorrarCliente();
+    
+        if (borrarCliente.getParent() == null) {
+            dtpEscritorio.add(borrarCliente);
+        }
+
+        borrarCliente.setVisible(true);
+        dtpEscritorio.moveToFront(borrarCliente);
+
+        try {
+            borrarCliente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }//GEN-LAST:event_BorrarClienteMenuItemActionPerformed
+
+    private void AgregarCiudadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCiudadMenuItemActionPerformed
+        VistaAgregarCiudad agregarCiudad = VistaAgregarCiudad.getAgregarCiudad();
+    
+        if (agregarCiudad.getParent() == null) {
+            dtpEscritorio.add(agregarCiudad);
+        }
+
+        agregarCiudad.setVisible(true);
+        dtpEscritorio.moveToFront(agregarCiudad);
+
+        try {
+            agregarCiudad.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }//GEN-LAST:event_AgregarCiudadMenuItemActionPerformed
+
+    private void ClientesPorCiudadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesPorCiudadMenuItemActionPerformed
+        VistaBuscarPorCiudad buscarPorCiudad = VistaBuscarPorCiudad.getBuscarPorCiudad();
+    
+        if (buscarPorCiudad.getParent() == null) {
+            dtpEscritorio.add(buscarPorCiudad);
+        }
+
+        buscarPorCiudad.setVisible(true);
+        dtpEscritorio.moveToFront(buscarPorCiudad);
+
+        try {
+            buscarPorCiudad.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }//GEN-LAST:event_ClientesPorCiudadMenuItemActionPerformed
+
+    private void ClientesPorApellidoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesPorApellidoMenuItemActionPerformed
+        VistaBuscarPorApellido buscarApellido = VistaBuscarPorApellido.getBuscarApellido();
+    
+        if (buscarApellido.getParent() == null) {
+            dtpEscritorio.add(buscarApellido);
+        }
+
+        buscarApellido.setVisible(true);
+        dtpEscritorio.moveToFront(buscarApellido);
+
+        try {
+            buscarApellido.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }//GEN-LAST:event_ClientesPorApellidoMenuItemActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -152,7 +266,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
     }
 

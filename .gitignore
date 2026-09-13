@@ -40,3 +40,4 @@ replay_pid*
 # === Archivos del sistema operativo ===
 .DS_Store
 Thumbs.db
+/build/

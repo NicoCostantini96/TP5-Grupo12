@@ -1,95 +1,67 @@
 package vistas;
 
 import entidades.Contacto;
-import java.util.Map;
-import javax.swing.DefaultListModel;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class VistaBorrarCliente extends javax.swing.JInternalFrame {
+public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
     
-    private static VistaBorrarCliente buscarCliente;
+    private static VistaBuscarPorCiudad buscarPorCiudad;
     private DefaultTableModel modeloTabla = new DefaultTableModel();
-    private DefaultListModel<Integer> modeloLista = new DefaultListModel<>();
     
-    
-    public VistaBorrarCliente() {
+    public VistaBuscarPorCiudad() {
         initComponents();
-        lstBusqueda.setModel(modeloLista);
-        llenarListaDni();
+        cargarCiudades();
         armarTabla();
+        cmbCiudades.setSelectedIndex(-1);
     }
     
-    public static VistaBorrarCliente getBorrarCliente() {
-        if (buscarCliente == null) {
-             buscarCliente = new VistaBorrarCliente();
+    public static VistaBuscarPorCiudad getBuscarPorCiudad() {
+        if (buscarPorCiudad == null) {
+            buscarPorCiudad = new VistaBuscarPorCiudad();
         }
-        return buscarCliente;
+        return buscarPorCiudad;
     }
     
-    private void llenarListaDni() {
-        modeloLista.clear();
-        Map<Long, Contacto> mapa = MenuPrincipal.directorio.getContactos();
-
-        for (Map.Entry<Long, Contacto> aux : mapa.entrySet()) {
-            Contacto contacto = aux.getValue();
-            modeloLista.addElement(contacto.getDni());
+    private void cargarCiudades() {
+        if (!MenuPrincipal.ciudades.isEmpty()) {
+            for (String aux : MenuPrincipal.ciudades) {
+                cmbCiudades.addItem(aux);
+            }
         }
     }
-
+    
     private void armarTabla() {
         String[] tituloTabla = {"DNI", "Apellido", "Nombre", "Ciudad", "Direccion", "Teléfono"};
         
         modeloTabla = new DefaultTableModel(null, tituloTabla);
         
         tblResultados.setModel(modeloTabla);
-        
-        tblResultados.getSelectionModel().addListSelectionListener(e -> { // El listener se debe llamar una vez con el constructor o moverlo ahí si se refactoriza este método.
-            if (!e.getValueIsAdjusting()) {
-                boolean haySeleccion = tblResultados.getSelectedRow() != -1;
-                btnBorrar.setEnabled(haySeleccion);
-            }
-        });
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBorrar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         separatorTitulo = new javax.swing.JSeparator();
         pnlDatos = new javax.swing.JPanel();
-        lblDni = new javax.swing.JLabel();
-        txtDni = new javax.swing.JTextField();
-        scpBusqueda = new javax.swing.JScrollPane();
-        lstBusqueda = new javax.swing.JList<>();
+        lblCiudades = new javax.swing.JLabel();
         scpResultado = new javax.swing.JScrollPane();
         tblResultados = new javax.swing.JTable();
+        cmbCiudades = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(680, 330));
-
-        btnBorrar.setText("Borrar");
-        btnBorrar.setEnabled(false);
-        btnBorrar.addActionListener(this::btnBorrarActionPerformed);
 
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(this::btnCerrarActionPerformed);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTitulo.setText("Borrar Cliente");
+        lblTitulo.setText("Buscar Clientes por Ciudad");
 
-        lblDni.setText("DNI:");
-
-        txtDni.setEditable(false);
-        txtDni.setFocusable(false);
-
-        scpBusqueda.setToolTipText("");
-        scpBusqueda.setHorizontalScrollBar(null);
-
-        lstBusqueda.addListSelectionListener(this::lstBusquedaValueChanged);
-        scpBusqueda.setViewportView(lstBusqueda);
+        lblCiudades.setText("Ciudades");
 
         tblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,30 +98,33 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
         tblResultados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         scpResultado.setViewportView(tblResultados);
 
+        cmbCiudades.addItemListener(this::cmbCiudadesItemStateChanged);
+
         javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);
         pnlDatos.setLayout(pnlDatosLayout);
         pnlDatosLayout.setHorizontalGroup(
             pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDatosLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblDni)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scpBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(txtDni))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(pnlDatosLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(pnlDatosLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(lblCiudades)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(scpResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlDatosLayout.setVerticalGroup(
             pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scpResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosLayout.createSequentialGroup()
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDni)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(scpBusqueda))
+            .addGroup(pnlDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCiudades)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,9 +134,7 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(btnCerrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE)
-                .addComponent(btnBorrar)
-                .addGap(14, 14, 14))
+                .addGap(14, 582, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,77 +156,48 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBorrar)
-                    .addComponent(btnCerrar))
+                .addComponent(btnCerrar)
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lstBusquedaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstBusquedaValueChanged
-        if (!evt.getValueIsAdjusting()) {
-            Integer seleccion = lstBusqueda.getSelectedValue();
-            
-            if (seleccion != null) {
-                txtDni.setText(String.valueOf(seleccion));
-                modeloTabla.setRowCount(0);
-
-                Map<Long, Contacto> mapa = MenuPrincipal.directorio.getContactos();
-
-                for (Map.Entry<Long, Contacto> aux : mapa.entrySet()) {
-                    Long telefono = aux.getKey();
-                    Contacto contacto = aux.getValue();
-
-                    if (seleccion.equals(contacto.getDni())) {
-                        modeloTabla.addRow(new Object[]{
-                            contacto.getDni(),
-                            contacto.getApellido(),
-                            contacto.getNombre(),
-                            contacto.getCiudad(),
-                            contacto.getDireccion(),
-                            telefono});
-                        return;
-                    }
-                }
-            } else {
-                txtDni.setText("");
-                modeloTabla.setRowCount(0);
-            }
-        }
-    }//GEN-LAST:event_lstBusquedaValueChanged
-
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.setVisible(false); 
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        Long seleccionTelefono = (Long) modeloTabla.getValueAt(tblResultados.getSelectedRow(), 5);
+    private void cmbCiudadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCiudadesItemStateChanged
+        modeloTabla.setRowCount(0);
         
-        if (MenuPrincipal.directorio.borrarContacto(seleccionTelefono)) {
-            modeloTabla.setRowCount(0);
-            txtDni.setText("");
-            llenarListaDni();
-            javax.swing.JOptionPane.showMessageDialog(this, "Se eliminó el contacto seleccionado con éxito.");
-            
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "No se puedo eliminar el contacto, reintente nuevamente.");
+        if (cmbCiudades.getSelectedItem() == null) {
+            return;
         }
-    }//GEN-LAST:event_btnBorrarActionPerformed
+        
+        String ciudad = (String) cmbCiudades.getSelectedItem();
+        List<Contacto> listaContactos = new ArrayList<>();
+        listaContactos.addAll(MenuPrincipal.directorio.buscarContactos(ciudad));
+        
+        for (Contacto aux : listaContactos) {
+            modeloTabla.addRow(new Object[]{
+                    aux.getDni(),
+                    aux.getApellido(),
+                    aux.getNombre(),
+                    aux.getCiudad(),
+                    aux.getDireccion(),
+                    aux});
+        }
+    }//GEN-LAST:event_cmbCiudadesItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JLabel lblDni;
+    private javax.swing.JComboBox<String> cmbCiudades;
+    private javax.swing.JLabel lblCiudades;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JList<Integer> lstBusqueda;
     private javax.swing.JPanel pnlDatos;
-    private javax.swing.JScrollPane scpBusqueda;
     private javax.swing.JScrollPane scpResultado;
     private javax.swing.JSeparator separatorTitulo;
     private javax.swing.JTable tblResultados;
-    private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }
