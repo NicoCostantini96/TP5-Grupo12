@@ -231,13 +231,18 @@ public class VistaAgregarCliente extends javax.swing.JInternalFrame {
         int dni = 0;
         long telefono = 0;
         
-        try {
-            
-            dni = Integer.parseInt(txtDni.getText());
-            telefono = Long.parseLong(txtTelefono.getText());
-            
-        } catch (NumberFormatException numberFormat) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error. Dni y teléfono solo acepta números.", "Error de datos", JOptionPane.ERROR_MESSAGE);
+        if (txtDni.getText().length()==8) {
+            try {
+
+                dni = Integer.parseInt(txtDni.getText());
+                telefono = Long.parseLong(txtTelefono.getText());
+
+            } catch (NumberFormatException numberFormat) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error. Dni y teléfono solo acepta números.", "Error de datos", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "Error. El Dni debe tener 8 digitos", "Error de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

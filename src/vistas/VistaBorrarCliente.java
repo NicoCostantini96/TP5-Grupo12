@@ -38,7 +38,9 @@ public class VistaBorrarCliente extends javax.swing.JInternalFrame {
     private void armarTabla() {
         String[] tituloTabla = {"DNI", "Apellido", "Nombre", "Ciudad", "Direccion", "Teléfono"};
         
-        modeloTabla = new DefaultTableModel(null, tituloTabla);
+        modeloTabla = new DefaultTableModel(null, tituloTabla){
+            @Override public boolean isCellEditable(int fila, int columna) { return false;
+        }};
         
         tblResultados.setModel(modeloTabla);
         

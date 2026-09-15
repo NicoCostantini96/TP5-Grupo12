@@ -105,6 +105,7 @@ public class VistaBuscarPorCiudad extends javax.swing.JInternalFrame {
             }
         });
         tblResultados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblResultados.setEnabled(false);
         scpResultado.setViewportView(tblResultados);
 
         cmbCiudades.addItemListener(this::cmbCiudadesItemStateChanged);

@@ -121,6 +121,8 @@ public class VistaBuscarPorApellido extends javax.swing.JInternalFrame {
             }
         });
         tblResultados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblResultados.setEnabled(false);
+        tblResultados.setRowSelectionAllowed(true);
         scpResultado.setViewportView(tblResultados);
 
         javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);

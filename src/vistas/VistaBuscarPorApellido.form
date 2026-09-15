@@ -167,6 +167,8 @@
                   </Table>
                 </Property>
                 <Property name="autoResizeMode" type="int" value="4"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="rowSelectionAllowed" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>
